@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">immunity</string>
+    <string name="app_name">今日も舌下免疫</string>
     <string name="action_settings">通知時刻</string>
+    <string name="action_reset">初期化</string>
     <string name="title_activity_set_time">SetTimeActivity</string>
 </resources>
