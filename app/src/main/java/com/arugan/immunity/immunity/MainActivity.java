@@ -31,6 +31,8 @@ import android.widget.TextView;
 
 import com.arugan.immunity.DailyScheduler;
 import com.arugan.immunity.dao.MySQLiteOpenHelper;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.sql.Time;
 import java.text.SimpleDateFormat;
@@ -89,6 +91,9 @@ public class MainActivity extends ActionBarActivity {
 //        progressBar1.setSecondaryProgress(60); // 水平プログレスバーのセカンダリ値を設定
 //        requestWindowFeature(Window.FEATURE_LEFT_ICON);
 
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
 
     }
@@ -261,6 +266,17 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        int remainCount = 0;
+        Cursor remainCursor = mydb.query("remain_count", new String[]{"_id", "remain"}, null, null, null, null, "_id DESC");
+        if(remainCursor.moveToFirst()) {
+            remainCount = remainCursor.getInt(remainCursor.getColumnIndex("remain"));
+        }
+        remainCountMsg.setText("薬の残数：" + remainCount);
     }
 }
 

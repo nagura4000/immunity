@@ -2,6 +2,8 @@ package com.arugan.immunity.immunity;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
@@ -45,23 +47,6 @@ public class RemainCounterActivity extends ActionBarActivity {
             int remainCount = cursor.getInt(cursor.getColumnIndex("remain"));
             remainText.setText(String.valueOf(remainCount));
         }
-
-//        // アイコン表示を有効にする
-//        requestWindowFeature(Window.FEATURE_LEFT_ICON);
-//        setContentView(R.layout.activity_remain_counter);
-//        // アイコン表示
-//        setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.abc_ic_clear_mtrl_alpha);
-
-//        final Window w = getWindow();
-//        w.requestFeature(Window.FEATURE_LEFT_ICON);
-//        setContentView(R.layout.activity_remain_counter);
-//        w.setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.ic_zekka);
-
-//        getActionBar().setDisplayShowHomeEnabled(true);
-//        getActionBar().setDisplayShowCustomEnabled(true);
-//        getActionBar().setLogo(R.drawable.ic_zekka); // ホーム画面のロゴ
-//        getActionBar().setIcon(R.drawable.ic_zekka); // ホーム以外で表示するアイコン
-//        getActionBar().setDisplayUseLogoEnabled(false); // ロゴを非表示
     }
 
     public void onClickRegister(View view) {
@@ -82,11 +67,22 @@ public class RemainCounterActivity extends ActionBarActivity {
                 values.put("remain", remainCount);
                 mydb.update("remain_count", values, null, null);
 
+//                TextView remainCountMsg = (TextView)findViewById(R.id.remainCount);
+//                remainCountMsg.setText("薬の残数：" + remainCount);
+
                 new AlertDialog.Builder(this)
                         .setTitle("薬の残り数")
                         .setMessage("更新完了です")
-                        .setPositiveButton("OK", null)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                // OKボタン押下時の処理
+                                Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                                startActivity(i);
+                            }
+                        })
                         .show();
+
+
         }
     }
 }

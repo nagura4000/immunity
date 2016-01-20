@@ -32,7 +32,9 @@
             android:id="@+id/remainCountText"
             android:layout_gravity="center_horizontal"
             android:background="#ffffff"
-            android:textAlignment="center" />
+            android:textAlignment="center"
+            android:autoText="false"
+            android:gravity="center" />
 
         <Button
             android:layout_width="115dp"
